@@ -6,8 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -18,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnDown, btnUp, btnLeft, btnRight, btnShoot;
     ImageView gun;
+    ProgressBar proBar;
+    FrameLayout fLayout;
+    Handler handler;
 
     final int MIN_Y = -15, MAX_Y = 30, MIN_X = -30, MAX_X = 30;
     int gunX = 0, gunY = 0;
@@ -37,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
         btnLeft = findViewById(R.id.btnLeft);
         btnShoot = findViewById(R.id.btnShoot);
         gun = findViewById(R.id.Gun);
+        proBar = findViewById(R.id.progressBar);
+        fLayout = findViewById(R.id.fLayout);
 
 
-        Handler handler = new Handler();
+        handler = new Handler();
 
 
 
@@ -156,5 +160,80 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
         });
+
+        btnShoot.setOnTouchListener(new View.OnTouchListener() {
+            boolean isUp = true;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == ACTION_DOWN){
+                    proBar.setVisibility(View.VISIBLE);
+
+                    handler.postDelayed(progressAct, 100);
+                }
+                else if(event.getAction() == ACTION_UP){
+                    proBar.setVisibility(View.INVISIBLE);
+                    
+                    //TODO 총알발사
+                    int x = (int) gun.getX() + gun.getWidth()/2;
+                    Shoot(x, (int)gun.getY(), proBar.getProgress());
+
+                    handler.removeCallbacks(progressAct);
+                }
+
+                return false;
+            }
+
+
+            Runnable progressAct = new Runnable() {
+                @Override
+                public void run() {
+                    int curProgress = proBar.getProgress();
+
+                    if(curProgress == 100){
+                        isUp = false;
+                    }
+                    else if(curProgress == 0){
+                        isUp = true;
+                    }
+
+                    if(isUp){
+                        proBar.incrementProgressBy(1);
+                    }
+                    else {
+                        proBar.incrementProgressBy(-1);
+                    }
+
+                    handler.postDelayed(this, 10);
+                }
+            };
+
+        });
+    }
+
+    //range는 0~100
+    public void Shoot(int x, int y, int range){
+        TextView t = new TextView(this); //총알
+        t.setText("A");
+        t.setTextSize(30);
+        t.setX(x);
+        t.setY(y);
+
+        fLayout.addView(t);
+
+
+        Runnable a = new Runnable() {
+            int count = range;
+            @Override
+            public void run() {
+                t.setY(t.getY()-10);
+                count--;
+
+                if(count <= 0) handler.removeCallbacks(this);
+                else handler.postDelayed(this, 10);
+            }
+        };
+
+        a.run();
     }
 }
