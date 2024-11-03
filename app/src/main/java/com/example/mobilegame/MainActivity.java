@@ -16,7 +16,7 @@ import static android.view.MotionEvent.ACTION_UP;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnDown, btnUp, btnLeft, btnRight;
+    Button btnDown, btnUp, btnLeft, btnRight, btnShoot;
     ImageView gun;
 
     final int MIN_Y = -15, MAX_Y = 30, MIN_X = -30, MAX_X = 30;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnUp = findViewById(R.id.btnUp);
         btnRight = findViewById(R.id.btnRight);
         btnLeft = findViewById(R.id.btnLeft);
+        btnShoot = findViewById(R.id.btnShoot);
         gun = findViewById(R.id.Gun);
 
 

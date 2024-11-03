@@ -80,14 +80,45 @@
         </GridLayout>
 
 
-        <GridLayout
+        <FrameLayout
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:background="#550000"
                 android:layout_gravity="bottom|right"
                 >
 
-        </GridLayout>
+            <Button
+                    android:id="@+id/btnShoot"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:text="발사"
+                    android:textSize="20sp"
+                    />
+
+        </FrameLayout>
+
+        <FrameLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="#550000"
+                android:layout_gravity="top|right"
+                >
+
+            <ProgressBar
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:rotation="270"
+                    android:id="@+id/progressBar"
+                    android:layout_gravity="center"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleY="5"
+                    android:text="발사"
+                    android:textSize="20sp"
+                    />
+
+        </FrameLayout>
+
 
     </FrameLayout>
 
