@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == ACTION_DOWN){
-                    handler.postDelayed(moveRight, 100);
+                    handler.postDelayed(moveRight, 10);
                 }
                 else if(event.getAction() == ACTION_UP){
                     handler.removeCallbacks(moveRight);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         gun.setX(currentX + 10);
                     }
 
-                    handler.postDelayed(this, 100);
+                    handler.postDelayed(this, 10);
                 }
             };
         });
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == ACTION_DOWN){
-                    handler.postDelayed(moveLeft, 100);
+                    handler.postDelayed(moveLeft, 10);
                 }
                 else if(event.getAction() == ACTION_UP){
                     handler.removeCallbacks(moveLeft);
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    handler.postDelayed(this, 100);
+                    handler.postDelayed(this, 10);
                 }
             };
         });
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == ACTION_DOWN){
-                    handler.postDelayed(moveUp, 100);
+                    handler.postDelayed(moveUp, 10);
                 }
                 else if(event.getAction() == ACTION_UP){
                     handler.removeCallbacks(moveUp);
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         gun.setY(currentY - 10);
                     }
 
-                    handler.postDelayed(this, 100);
+                    handler.postDelayed(this, 10);
                 }
             };
         });
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == ACTION_DOWN){
-                    handler.postDelayed(moveDown, 100);
+                    handler.postDelayed(moveDown, 10);
                 }
                 else if(event.getAction() == ACTION_UP){
                     handler.removeCallbacks(moveDown);
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                         gun.setY(currentY + 10);
                     }
 
-                    handler.postDelayed(this, 100);
+                    handler.postDelayed(this, 10);
                 }
             };
         });
@@ -168,8 +168,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == ACTION_DOWN){
                     proBar.setVisibility(View.VISIBLE);
+                    proBar.setProgress(0);
 
-                    handler.postDelayed(progressAct, 100);
+                    handler.postDelayed(progressAct, 10);
                 }
                 else if(event.getAction() == ACTION_UP){
                     proBar.setVisibility(View.INVISIBLE);
@@ -222,11 +223,17 @@ public class MainActivity extends AppCompatActivity {
         fLayout.addView(t);
 
 
-        Runnable a = new Runnable() {
+        Runnable ani = new Runnable() {
             int count = range;
             @Override
             public void run() {
-                t.setY(t.getY()-10);
+                if(count > 70) t.setY(t.getY()-15);
+                else if(count > 55) t.setY(t.getY()-12);
+                else if(count > 40) t.setY(t.getY()-9);
+                else if(count > 25) t.setY(t.getY()-7);
+                else if(count > 10) t.setY(t.getY()-5);
+                else t.setY(t.getY()-3);
+
                 count--;
 
                 if(count <= 0) handler.removeCallbacks(this);
@@ -234,6 +241,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        a.run();
+        ani.run();
     }
 }
