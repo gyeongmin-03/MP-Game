@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     Shoot(x, (int)gun.getY(), proBar.getProgress());
 
                     handler.removeCallbacks(progressAct);
+                    //TODO return된 x,y값이 표적arr내부에 포함이 된다면 이벤트 발생
                 }
 
                 return false;
@@ -242,5 +243,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         ani.run();
+        //return t.getX(), t.getY()
     }
 }
